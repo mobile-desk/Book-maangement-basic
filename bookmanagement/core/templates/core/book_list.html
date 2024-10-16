@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Available Books</h2>
+<a href="{% url 'my_rentals' %}"> My Rentals </a>
+<ul>
+    {% for book in books %}
+        <li>
+            {{ book.title }}
+            {% if book.is_available %}
+                <a href="{% url 'rent_book' book.id %}">
+                    Rent
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>My Rentals</h2>
+
+
+
+
+<ul>
+    {% for rental in rentals %}
+        <li>
+            {{ rental.book.title }}
+            {{ rental.borrowed_at }}
+
+            {% if rental.returning_date%}
+                returned
+            {% else %}
+                not returned
+                <a href="{% url 'return_book' rental.id %}">
+                    Return
+                </a>
+            {% endif %}
+
+
+            {% if rental.penalty_days > 0 %}
+                <p>Late by: {{ rental.penalty_days }} days</p>
+                <p>Penalty: ${{ rental.penalty }}</p>
+            {% endif %}
+
+
+            {% if book.is_available %}
+                <a href="{% url 'rent_book' book.id %}">
+                    Rent
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
